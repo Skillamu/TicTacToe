@@ -22,11 +22,18 @@ namespace TicTacToe
 
         public void Mark(bool player1)
         {
-            if (!IsEmpty()) return;
+            if (IsEmpty())
+            {
+                _content = player1 ? 1 : 2;
+            }
+        }
 
-            _content = player1 ? 1 : 2;
-            var symbol = player1 ? "x" : "o";
-            Console.WriteLine(symbol);
+        public string Symbol()
+        {
+            if (!IsEmpty()) return IsPlayer1() ? "x" : "o";
+
+            return " ";
         }
     }
+
 }
