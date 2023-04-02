@@ -8,7 +8,7 @@ namespace TicTacToe
 {
     internal class Board
     {
-        public Square[] _squares;
+        private Square[] _squares;
 
         public Board()
         {
@@ -25,9 +25,23 @@ namespace TicTacToe
             return _squares[index].Symbol();
         }
 
-        public void MarkAtSquare(string position)
+        public void MarkSquare(string position)
         {
-            // make logic for the position parameter.
+            char[] columns = {'a', 'b', 'c'};
+            char[] rows = { '1', '2', '3' };
+
+            var columnIndex = Array.IndexOf(columns, position[0]);
+            var rowIndex = Array.IndexOf(rows, position[1]);
+            var index = columnIndex + (rowIndex * 3);
+
+            _squares[index].Mark(true);
+        }
+
+        public void MarkRandomSquare(bool player)
+        {
+            var random = new Random();
+            var randomIndex = random.Next(0, 9);
+            _squares[randomIndex].Mark(player);
         }
     }
 }

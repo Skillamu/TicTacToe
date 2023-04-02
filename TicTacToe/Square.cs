@@ -20,11 +20,11 @@ namespace TicTacToe
             return _content == 1;
         }
 
-        public void Mark(bool player1)
+        public void Mark(bool player)
         {
             if (IsEmpty())
             {
-                _content = player1 ? 1 : 2;
+                _content = player ? 1 : 2;
             }
         }
 

@@ -11,9 +11,13 @@
                 gameConsole.Show(board);
                 Console.WriteLine("Skriv inn hvor du vil sette kryss, f.eks \"a2\"");
                 var position = Console.ReadLine();
-                board.MarkAtSquare(position); // gonna make logic for this method tomorrow.
+                board.MarkSquare(position);
+                gameConsole.Show(board);
+                Thread.Sleep(2000);
+                board.MarkRandomSquare(false);
             }
-            Console.ReadKey(true);
         }
     }
 }
+
+// gonna fix so you don't lose your move if the square you tried to take is occupied.
