@@ -8,28 +8,25 @@ namespace TicTacToe
 {
     internal class Board
     {
-        private Square[] _squares;
+        private Square[] _board;
         private Random _random;
         private Algorithm _algorithm;
 
-        public string Winner { get; private set; }
-
         public Board()
         {
-            _squares = new Square[9];
-            for (int i = 0; i < _squares.Length; i++)
+            _board = new Square[9];
+            for (int i = 0; i < _board.Length; i++)
             {
-                _squares[i] = new Square();
+                _board[i] = new Square();
             }
 
-            Winner = "";
             _random = new Random();
             _algorithm = new Algorithm();
         }
 
         public string Square(int index)
         {
-            return _squares[index].Symbol();
+            return _board[index].Symbol();
         }
 
         public void MarkSquare(string position)
@@ -40,21 +37,18 @@ namespace TicTacToe
             var columnIndex = Array.IndexOf(columns, position[0]);
             var rowIndex = Array.IndexOf(rows, position[1]);
             var index = columnIndex + (rowIndex * 3);
-
-            _squares[index].Mark(true);
-            Winner = ThreeInARow("x") ? "player1" : "";
+            _board[index].Mark(true);
         }
 
         public void MarkRandomSquare(bool player)
         {
             var randomIndex = _random.Next(0, 9);
-            _squares[randomIndex].Mark(player);
-            Winner = ThreeInARow("o") ? "player2" : "";
+            _board[randomIndex].Mark(player);
         }
 
-        private bool ThreeInARow(string searchSymbol)
+        public bool CheckForThreeInARow(string symbol)
         {
-            return _algorithm.CheckAllPossibleWinnerOutcomes(_squares, searchSymbol);
+            return _algorithm.CheckAllPossibleWinnerOutcomes(_board, symbol);
         }
     }
 }

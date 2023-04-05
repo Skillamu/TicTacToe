@@ -8,22 +8,25 @@ namespace TicTacToe
 {
     internal class Algorithm
     {
-        public bool CheckAllPossibleWinnerOutcomes(Square[] squares, string symbol)
+        public bool CheckAllPossibleWinnerOutcomes(Square[] board, string symbol)
         {
-            if (Vertical(squares, symbol) || Horizontal(squares, symbol) || Diagonal(squares, symbol))
+            if (
+                CheckForWinnerVertical(board, symbol) ||
+                CheckForWinnerHorizontal(board, symbol) ||
+                CheckForWinnerDiagonal(board, symbol))
             {
                 return true;
             }
             return false;
         }
 
-        private bool Vertical(Square[] squares, string symbol)
+        private bool CheckForWinnerVertical(Square[] board, string symbol)
         {
             var nextIndex = 1;
 
-            for (var i = 0; i < squares.Length; i += 3)
+            for (var i = 0; i < board.Length; i += 3)
             {
-                if (squares[i].Symbol() != symbol)
+                if (board[i].Symbol() != symbol)
                 {
                     if (nextIndex == 3) return false;
 
@@ -34,14 +37,14 @@ namespace TicTacToe
             return true;
         }
 
-        private bool Horizontal(Square[] squares, string symbol)
+        private bool CheckForWinnerHorizontal(Square[] board, string symbol)
         {
             var nextIndex = 3;
             var maxLength = 3;
 
             for (var i = 0; i < maxLength; i++)
             {
-                if (squares[i].Symbol() != symbol)
+                if (board[i].Symbol() != symbol)
                 {
                     if (nextIndex == 9) return false;
 
@@ -53,7 +56,7 @@ namespace TicTacToe
             return true;
         }
 
-        private bool Diagonal(Square[] squares, string symbol)
+        private bool CheckForWinnerDiagonal(Square[] board, string symbol)
         {
             var nextIndex = 8;
             var maxLength = 2;
@@ -61,9 +64,9 @@ namespace TicTacToe
 
             for (var i = 6; i >= maxLength; i -= decrementNum)
             {
-                if (squares[i].Symbol() != symbol)
+                if (board[i].Symbol() != symbol)
                 {
-                    if (nextIndex == 12) return false;
+                    if (nextIndex > 8) return false;
 
                     maxLength = 0;
                     decrementNum = 4;

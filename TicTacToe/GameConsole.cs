@@ -10,6 +10,7 @@ namespace TicTacToe
     {
         public void Show(Board board)
         {
+            Console.Clear();
             Console.WriteLine(@$"
   a b c
  ┌─────┐
