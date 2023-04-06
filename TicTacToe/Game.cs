@@ -9,41 +9,44 @@ namespace TicTacToe
 {
     internal class Game
     {
-        private string _winner;
         private Board _board;
         private GameConsole _gameConsole;
+        private string _outcome;
 
         public Game(Board board, GameConsole gameConsole)
         {
-            _winner = "";
             _board = board;
             _gameConsole = gameConsole;
+            _outcome = "";
         }
 
-        public bool GotAWinner(string symbol)
+        public bool WinOrTie()
         {
-            var player = symbol == "x" ? "player1" : "player2";
-            _winner = _board.CheckForThreeInARow(symbol) ? player : "";
-            return _winner != "" ? true : false;
+            _outcome = _board.CheckForWinner("x") ? "Player1 vant!" :
+                       _board.CheckForWinner("o") ? "Player2 vant!" :
+                       _board.CheckForTie() ? "Det ble uavgjort..." : "";
+
+            return _outcome != "" ? true : false;
         }
 
         public void Run()
         {
-            while (_winner == "")
+            while (true)
             {
                 _gameConsole.Show(_board);
                 Console.WriteLine("Skriv inn hvor du vil sette kryss, f.eks \"a2\"");
                 var position = Console.ReadLine();
                 _board.MarkSquare(position);
                 _gameConsole.Show(_board);
-                if (GotAWinner("x")) break;
-                Thread.Sleep(2000);
+                if (WinOrTie()) break;
+                Console.WriteLine("Motstanderen velger rute...");
+                Thread.Sleep(3000);
                 _board.MarkRandomSquare(false);
-                if (GotAWinner("o")) break;
+                if (WinOrTie()) break;
             }
 
             _gameConsole.Show(_board);
-            Console.WriteLine($"{_winner} has won!");
+            Console.WriteLine(_outcome);
             Console.ReadKey(true);
         }
     }

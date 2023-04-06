@@ -11,7 +11,7 @@ namespace TicTacToe
     {
         private int _content; // 0 = empty, 1 = player1, 2 = player2
 
-        private bool IsEmpty()
+        public bool IsEmpty()
         {
             return _content == 0;
         }
