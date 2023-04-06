@@ -11,22 +11,22 @@ namespace TicTacToe
     {
         private Board _board;
         private GameConsole _gameConsole;
-        private string _outcome;
+        private string _gameResult;
 
         public Game(Board board, GameConsole gameConsole)
         {
             _board = board;
             _gameConsole = gameConsole;
-            _outcome = "";
+            _gameResult = "";
         }
 
         public bool WinOrTie()
         {
-            _outcome = _board.CheckForWinner("x") ? "Player1 vant!" :
-                       _board.CheckForWinner("o") ? "Player2 vant!" :
-                       _board.CheckForTie() ? "Det ble uavgjort..." : "";
+            _gameResult = _board.CheckForWinner("x") ? "Player1 vant!" :
+                          _board.CheckForWinner("o") ? "Player2 vant!" :
+                          _board.CheckForTie() ? "Det ble uavgjort..." : "";
 
-            return _outcome != "" ? true : false;
+            return _gameResult != "" ? true : false;
         }
 
         public void Run()
@@ -34,19 +34,28 @@ namespace TicTacToe
             while (true)
             {
                 _gameConsole.Show(_board);
-                Console.WriteLine("Skriv inn hvor du vil sette kryss, f.eks \"a2\"");
+                Console.Write("Skriv inn hvor du vil sette kryss, f.eks \"a2\": ");
                 var position = Console.ReadLine();
                 _board.MarkSquare(position);
                 _gameConsole.Show(_board);
                 if (WinOrTie()) break;
-                Console.WriteLine("Motstanderen velger rute...");
+
+                Console.WriteLine("Player2 velger rute...");
                 Thread.Sleep(3000);
                 _board.MarkRandomSquare(false);
                 if (WinOrTie()) break;
             }
 
             _gameConsole.Show(_board);
-            Console.WriteLine(_outcome);
+            Console.WriteLine($"{_gameResult}\n");
+
+            Console.Write("Vil du starte spillet på nytt? ja/nei: ");
+            var answer = Console.ReadLine();
+            if (answer == "ja")
+            {
+                // make reset method
+                Run();
+            }
             Console.ReadKey(true);
         }
     }

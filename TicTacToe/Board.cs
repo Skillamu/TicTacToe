@@ -37,13 +37,15 @@ namespace TicTacToe
             var columnIndex = Array.IndexOf(columns, position[0]);
             var rowIndex = Array.IndexOf(rows, position[1]);
             var index = columnIndex + (rowIndex * 3);
+
             _squares[index].Mark(true);
         }
 
         public void MarkRandomSquare(bool player)
         {
             var randomIndex = _random.Next(0, 9);
-            while (!_squares[randomIndex].IsEmpty())
+
+            while (!_squares[randomIndex].IsEmpty()) // <--- brute-force LOL, may refactor later.
             {
                 randomIndex = _random.Next(0, 9);
             }

@@ -8,25 +8,25 @@ namespace TicTacToe
 {
     internal class Algorithm
     {
-        public bool CheckAllPossibleWinnerOutcomes(Square[] board, string symbol)
+        public bool CheckAllPossibleWinnerOutcomes(Square[] squares, string symbol)
         {
             if (
-                CheckForWinnerVertical(board, symbol) ||
-                CheckForWinnerHorizontal(board, symbol) ||
-                CheckForWinnerDiagonal(board, symbol))
+                CheckForWinnerVertical(squares, symbol) ||
+                CheckForWinnerHorizontal(squares, symbol) ||
+                CheckForWinnerDiagonal(squares, symbol))
             {
                 return true;
             }
             return false;
         }
 
-        private bool CheckForWinnerVertical(Square[] board, string symbol)
+        private bool CheckForWinnerVertical(Square[] squares, string symbol)
         {
             var nextIndex = 1;
 
-            for (var i = 0; i < board.Length; i += 3)
+            for (var i = 0; i < squares.Length; i += 3)
             {
-                if (board[i].Symbol() != symbol)
+                if (squares[i].Symbol() != symbol)
                 {
                     if (nextIndex == 3) return false;
 
@@ -37,14 +37,14 @@ namespace TicTacToe
             return true;
         }
 
-        private bool CheckForWinnerHorizontal(Square[] board, string symbol)
+        private bool CheckForWinnerHorizontal(Square[] squares, string symbol)
         {
             var nextIndex = 3;
             var maxLength = 3;
 
             for (var i = 0; i < maxLength; i++)
             {
-                if (board[i].Symbol() != symbol)
+                if (squares[i].Symbol() != symbol)
                 {
                     if (nextIndex == 9) return false;
 
@@ -56,7 +56,7 @@ namespace TicTacToe
             return true;
         }
 
-        private bool CheckForWinnerDiagonal(Square[] board, string symbol)
+        private bool CheckForWinnerDiagonal(Square[] squares, string symbol)
         {
             var nextIndex = 8;
             var maxLength = 2;
@@ -64,7 +64,7 @@ namespace TicTacToe
 
             for (var i = 6; i >= maxLength; i -= decrementNum)
             {
-                if (board[i].Symbol() != symbol)
+                if (squares[i].Symbol() != symbol)
                 {
                     if (nextIndex > 8) return false;
 
