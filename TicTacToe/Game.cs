@@ -20,7 +20,7 @@ namespace TicTacToe
             _gameResult = "";
         }
 
-        public bool WinOrTie()
+        private bool WinOrTie()
         {
             _gameResult = _board.CheckForWinner("x") ? "Player1 vant!" :
                           _board.CheckForWinner("o") ? "Player2 vant!" :
@@ -41,7 +41,7 @@ namespace TicTacToe
                 if (WinOrTie()) break;
 
                 Console.WriteLine("Player2 velger rute...");
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 _board.MarkRandomSquare(false);
                 if (WinOrTie()) break;
             }
@@ -53,10 +53,22 @@ namespace TicTacToe
             var answer = Console.ReadLine();
             if (answer == "ja")
             {
-                // make reset method
-                Run();
+                ResetAndRun();
             }
-            Console.ReadKey(true);
+            Close();
+        }
+
+        private void ResetAndRun()
+        {
+            _board.Reset();
+            Run();
+        }
+
+        private void Close()
+        {
+            Console.WriteLine("Lukker spillet...");
+            Thread.Sleep(2000);
+            Environment.Exit(0);
         }
     }
 }

@@ -31,6 +31,10 @@ namespace TicTacToe
             return IsEmpty() ? " " : 
                    IsPlayer1() ? "x" : "o";
         }
-    }
 
+        public void ResetToDefault()
+        {
+            _content = 0;
+        }
+    }
 }

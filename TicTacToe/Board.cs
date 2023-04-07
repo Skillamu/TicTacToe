@@ -67,5 +67,13 @@ namespace TicTacToe
             }
             return occupiedSquares == 9 ? true : false;
         }
+
+        public void Reset()
+        {
+            foreach (var square in _squares)
+            {
+                square.ResetToDefault();
+            }
+        }
     }
 }
